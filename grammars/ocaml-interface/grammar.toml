@@ -1,0 +1,21 @@
+name = "ocaml-interface"
+repository = "https://github.com/tree-sitter/tree-sitter-ocaml"
+revision = "3b2e14e0697d405c9aa0beddfa09b71f45abc504"
+path = "grammars/interface"
+language = "ocaml_interface"
+license = "MIT"
+scope = "source.ocaml.interface"
+injection_regex = "^ocaml_interface$"
+
+[files]
+extensions = ["mli"]
+
+[queries]
+highlights = "highlights.scm"
+locals = "locals.scm"
+tags = "tags.scm"
+
+[query-sources]
+highlights = ["ocaml-interface:queries/highlights.scm"]
+locals = ["ocaml-interface:queries/locals.scm"]
+tags = ["ocaml-interface:queries/tags.scm"]

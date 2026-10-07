@@ -1,0 +1,22 @@
+name = "scala"
+repository = "https://github.com/tree-sitter/tree-sitter-scala"
+revision = "db390f312a54b04b13790e1767bfac32665c17ac"
+path = "."
+language = "scala"
+license = "MIT"
+scope = "source.scala"
+
+[files]
+extensions = ["scala", "sbt"]
+
+[queries]
+highlights = "highlights.scm"
+locals = "locals.scm"
+tags = "tags.scm"
+indents = "indents.scm"
+
+[query-sources]
+highlights = ["scala:queries/highlights.scm"]
+locals = ["scala:queries/locals.scm"]
+tags = ["scala:queries/tags.scm"]
+indents = ["scala:queries/indents.scm"]

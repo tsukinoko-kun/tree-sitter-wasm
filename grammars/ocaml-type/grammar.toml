@@ -1,0 +1,21 @@
+name = "ocaml-type"
+repository = "https://github.com/tree-sitter/tree-sitter-ocaml"
+revision = "3b2e14e0697d405c9aa0beddfa09b71f45abc504"
+path = "grammars/type"
+language = "ocaml_type"
+license = "MIT"
+scope = "source.ocaml.type"
+injection_regex = "^ocaml_type$"
+
+[files]
+extensions = []
+
+[queries]
+highlights = "highlights.scm"
+locals = "locals.scm"
+tags = "tags.scm"
+
+[query-sources]
+highlights = ["ocaml-type:queries/highlights.scm"]
+locals = ["ocaml-type:queries/locals.scm"]
+tags = ["ocaml-type:queries/tags.scm"]

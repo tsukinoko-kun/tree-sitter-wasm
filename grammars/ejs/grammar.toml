@@ -1,0 +1,19 @@
+name = "ejs"
+repository = "https://github.com/tree-sitter/tree-sitter-embedded-template"
+revision = "3499d85f0a0d937c507a4a65368f2f63772786e1"
+path = "."
+language = "embedded_template"
+license = "MIT"
+scope = "text.html.ejs"
+injection_regex = "ejs"
+
+[files]
+extensions = ["ejs"]
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+
+[query-sources]
+highlights = ["ejs:queries/highlights.scm"]
+injections = ["ejs:queries/injections-ejs.scm"]

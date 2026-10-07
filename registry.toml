@@ -1,0 +1,20 @@
+schema_version = 1
+source = "https://tree-sitter.github.io/tree-sitter/#parsers"
+grammars = [
+  "agda", "bash", "c", "c-sharp", "cpp", "css", "ejs", "erb", "etlua",
+  "flow", "go", "haskell", "html", "java", "javascript", "jsdoc", "json",
+  "julia", "ocaml", "ocaml-interface", "ocaml-type", "php", "php-only",
+  "python", "regex", "ruby", "rust", "scala", "tsx", "typescript", "verilog",
+]
+
+[tree-sitter]
+version = "0.27.0"
+
+[tree-sitter.sha256]
+linux-arm64 = "3a35a2dd961ad842384e982c75daf792c01d1a67e442fc3914d4de37bd8a59cb"
+linux-x64 = "20a1f39ec1c45f2211492dcb8881c802b643b554bb196869a29ac3778277fa77"
+macos-arm64 = "70f7573b2b2e5371a5b58cc5227d2ad981fd5374596b9874e770af486060774e"
+macos-x64 = "767528eaab3cca9d929fb96b4cb11cc9f03e09e293675151875c0fe5f79c06f0"
+
+[web-tree-sitter]
+integrity = "sha512-XK08gj6RwTMQatAG7uVRP8MunqotL/XC19vHgkSPKmELgbGPBj4ECvB8haHOUnyj6ls2B8t42UTro14zxGgAHg=="

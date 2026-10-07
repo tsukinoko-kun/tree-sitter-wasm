@@ -1,0 +1,19 @@
+name = "c-sharp"
+repository = "https://github.com/tree-sitter/tree-sitter-c-sharp"
+revision = "8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5"
+path = "."
+language = "c_sharp"
+license = "MIT"
+scope = "source.cs"
+injection_regex = "cs"
+
+[files]
+extensions = ["cs"]
+
+[queries]
+highlights = "highlights.scm"
+tags = "tags.scm"
+
+[query-sources]
+highlights = ["c-sharp:queries/highlights.scm"]
+tags = ["c-sharp:queries/tags.scm"]

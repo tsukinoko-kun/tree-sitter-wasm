@@ -1,0 +1,15 @@
+name = "verilog"
+repository = "https://github.com/tree-sitter/tree-sitter-verilog"
+revision = "227d277b6a1a5e2bf818d6206935722a7503de08"
+path = "."
+language = "verilog"
+license = "MIT"
+scope = "source.verilog"
+injection_regex = "^verilog$"
+
+[files]
+extensions = ["v", "vh", "sv", "svh"]
+
+[queries]
+
+[query-sources]

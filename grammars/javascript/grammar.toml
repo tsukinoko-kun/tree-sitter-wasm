@@ -1,0 +1,23 @@
+name = "javascript"
+repository = "https://github.com/tree-sitter/tree-sitter-javascript"
+revision = "58404d8cf191d69f2674a8fd507bd5776f46cb11"
+path = "."
+language = "javascript"
+license = "MIT"
+scope = "source.js"
+injection_regex = "^(js|javascript)$"
+
+[files]
+extensions = ["js", "mjs", "cjs", "jsx"]
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+locals = "locals.scm"
+tags = "tags.scm"
+
+[query-sources]
+highlights = ["javascript:queries/highlights.scm", "javascript:queries/highlights-jsx.scm", "javascript:queries/highlights-params.scm"]
+injections = ["javascript:queries/injections.scm"]
+locals = ["javascript:queries/locals.scm"]
+tags = ["javascript:queries/tags.scm"]

@@ -1,0 +1,17 @@
+name = "jsdoc"
+repository = "https://github.com/tree-sitter/tree-sitter-jsdoc"
+revision = "658d18dcdddb75c760363faa4963427a7c6b52db"
+path = "."
+language = "jsdoc"
+license = "MIT"
+scope = "text.jsdoc"
+injection_regex = "jsdoc"
+
+[files]
+extensions = []
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["jsdoc:queries/highlights.scm"]

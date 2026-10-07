@@ -1,0 +1,19 @@
+name = "html"
+repository = "https://github.com/tree-sitter/tree-sitter-html"
+revision = "73a3947324f6efddf9e17c0ea58d454843590cc0"
+path = "."
+language = "html"
+license = "MIT"
+scope = "source.html"
+injection_regex = "html"
+
+[files]
+extensions = ["html"]
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+
+[query-sources]
+highlights = ["html:queries/highlights.scm"]
+injections = ["html:queries/injections.scm"]

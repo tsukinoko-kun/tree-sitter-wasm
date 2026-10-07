@@ -1,0 +1,21 @@
+name = "julia"
+repository = "https://github.com/tree-sitter/tree-sitter-julia"
+revision = "e0f9dcd180fdcfcfa8d79a3531e11d99e79321d3"
+path = "."
+language = "julia"
+license = "MIT"
+scope = "source.julia"
+injection_regex = "^(jl|julia)$"
+
+[files]
+extensions = ["jl"]
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+locals = "locals.scm"
+
+[query-sources]
+highlights = ["julia:queries/highlights.scm"]
+injections = ["julia:queries/injections.scm"]
+locals = ["julia:queries/locals.scm"]

@@ -1,0 +1,16 @@
+name = "json"
+repository = "https://github.com/tree-sitter/tree-sitter-json"
+revision = "254c42a6476413b776221e03982ac8ae159eeb72"
+path = "."
+language = "json"
+license = "MIT"
+scope = "source.json"
+
+[files]
+extensions = ["json"]
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["json:queries/highlights.scm"]

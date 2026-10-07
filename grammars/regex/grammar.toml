@@ -1,0 +1,17 @@
+name = "regex"
+repository = "https://github.com/tree-sitter/tree-sitter-regex"
+revision = "b2ac15e27fce703d2f37a79ccd94a5c0cbe9720b"
+path = "."
+language = "regex"
+license = "MIT"
+scope = "source.regex"
+injection_regex = "^regex$"
+
+[files]
+extensions = []
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["regex:queries/highlights.scm"]

@@ -1,0 +1,17 @@
+name = "agda"
+repository = "https://github.com/tree-sitter/tree-sitter-agda"
+revision = "e8d47a6987effe34d5595baf321d82d3519a8527"
+path = "."
+language = "agda"
+license = "MIT"
+scope = "source.agda"
+injection_regex = "^agda$"
+
+[files]
+extensions = ["agda"]
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["agda:queries/highlights.scm"]

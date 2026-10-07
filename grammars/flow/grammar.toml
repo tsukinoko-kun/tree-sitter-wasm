@@ -1,0 +1,23 @@
+name = "flow"
+repository = "https://github.com/tree-sitter/tree-sitter-typescript"
+revision = "75b3874edb2dc714fb1fd77a32013d0f8699989f"
+path = "tsx"
+language = "tsx"
+license = "MIT"
+scope = "source.js.flow"
+
+[files]
+extensions = ["js"]
+content_regex = "@flow"
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+locals = "locals.scm"
+tags = "tags.scm"
+
+[query-sources]
+highlights = ["flow:queries/highlights.scm", "javascript:queries/highlights-jsx.scm", "javascript:queries/highlights.scm"]
+injections = ["javascript:queries/injections.scm"]
+locals = ["javascript:queries/locals.scm"]
+tags = ["flow:queries/tags.scm", "javascript:queries/tags.scm"]

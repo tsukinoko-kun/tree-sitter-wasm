@@ -1,0 +1,19 @@
+name = "c"
+repository = "https://github.com/tree-sitter/tree-sitter-c"
+revision = "b780e47fc780ddc8da13afa35a3f4ed5c157823d"
+path = "."
+language = "c"
+license = "MIT"
+scope = "source.c"
+injection_regex = "^(c|h)$"
+
+[files]
+extensions = ["c", "h"]
+
+[queries]
+highlights = "highlights.scm"
+tags = "tags.scm"
+
+[query-sources]
+highlights = ["c:queries/highlights.scm"]
+tags = ["c:queries/tags.scm"]

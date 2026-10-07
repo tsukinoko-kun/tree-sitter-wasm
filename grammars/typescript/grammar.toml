@@ -1,0 +1,23 @@
+name = "typescript"
+repository = "https://github.com/tree-sitter/tree-sitter-typescript"
+revision = "75b3874edb2dc714fb1fd77a32013d0f8699989f"
+path = "typescript"
+language = "typescript"
+license = "MIT"
+scope = "source.ts"
+injection_regex = "^(ts|typescript)$"
+
+[files]
+extensions = ["ts"]
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+locals = "locals.scm"
+tags = "tags.scm"
+
+[query-sources]
+highlights = ["typescript:queries/highlights.scm", "javascript:queries/highlights.scm"]
+injections = ["javascript:queries/injections.scm"]
+locals = ["typescript:queries/locals.scm", "javascript:queries/locals.scm"]
+tags = ["typescript:queries/tags.scm", "javascript:queries/tags.scm"]

@@ -1,0 +1,21 @@
+name = "haskell"
+repository = "https://github.com/tree-sitter/tree-sitter-haskell"
+revision = "97288e585b0bd44199720280d067fa35bacd81ff"
+path = "."
+language = "haskell"
+license = "MIT"
+scope = "source.haskell"
+injection_regex = "^(hs|haskell)$"
+
+[files]
+extensions = ["hs", "hs-boot"]
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+locals = "locals.scm"
+
+[query-sources]
+highlights = ["haskell:queries/highlights.scm"]
+injections = ["haskell:queries/injections.scm"]
+locals = ["haskell:queries/locals.scm"]

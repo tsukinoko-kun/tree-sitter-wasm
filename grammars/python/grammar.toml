@@ -8,7 +8,7 @@ scope = "source.python"
 injection_regex = "py"
 
 [files]
-extensions = ["py"]
+extensions = ["py", "star", "bzl", "bazel", "build"]
 
 [queries]
 highlights = "highlights.scm"

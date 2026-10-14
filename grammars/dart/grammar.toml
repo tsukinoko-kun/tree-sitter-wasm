@@ -1,0 +1,19 @@
+name = "dart"
+aliases = ["dart"]
+repository = "https://github.com/UserNobody14/tree-sitter-dart"
+revision = "be07cf7118d3dba06236a3f19541685a68209934"
+path = "."
+language = "dart"
+license = "MIT"
+scope = "source.dart"
+
+[files]
+extensions = ["dart"]
+
+[queries]
+highlights = "highlights.scm"
+tags = "tags.scm"
+
+[query-sources]
+highlights = ["dart:queries/highlights.scm"]
+tags = ["dart:queries/tags.scm"]

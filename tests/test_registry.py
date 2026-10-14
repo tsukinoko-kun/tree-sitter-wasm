@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 from registry import (file_record, load_registry, publish_output, query_content,
-                      recover_output, registry_lock, safe_path, select)
+                      recover_output, registry_lock, safe_path, select, sync_queries)
 
 
 class SelectionTests(unittest.TestCase):
@@ -122,6 +122,15 @@ highlights = ["rust:queries/highlights.scm"]
         with self.assertRaisesRegex(ValueError, "full commit SHA"):
             load_registry(self.root)
 
+    def test_license_file_cannot_escape_the_source_repository(self):
+        for value in ('"../LICENSE"', '"/LICENSE"', '"legal/../../LICENSE"', '[]', '""'):
+            with self.subTest(value=value):
+                metadata = self.metadata.replace('license = "MIT"',
+                                                 f'license = "MIT"\nlicense_file = {value}')
+                (self.directory / "grammar.toml").write_text(metadata)
+                with self.assertRaisesRegex(ValueError, "Invalid relative path|Unsafe relative path"):
+                    load_registry(self.root)
+
     def test_duplicate_registry_entries_fail(self):
         self.config = self.config.replace('["rust"]', '["rust", "rust"]')
         self.write()
@@ -203,6 +212,37 @@ class JavaScriptDetectionTests(unittest.TestCase):
 
 
 class ArtifactTests(unittest.TestCase):
+    def test_sync_uses_the_declared_license_file_without_changing_its_bytes(self):
+        for filename in (None, "LICENSE.md", "legal/LICENSE.txt"):
+            with self.subTest(filename=filename), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                source = root / "upstream"
+                source.mkdir()
+                (source / "LICENSE").write_bytes(b"default license\n")
+                entry = {"name": "example"}
+                expected = b"default license\n"
+                if filename is not None:
+                    entry["license_file"] = filename
+                    path = source / filename
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    expected = b"explicit license\r\nCopyright notice\r\n"
+                    path.write_bytes(expected)
+                directory = root / "grammars/example"
+                directory.mkdir(parents=True)
+                with patch("registry.ROOT", root), patch("registry.source_path", return_value=source):
+                    sync_queries({"example": entry}, {"example": entry})
+                self.assertEqual((directory / "LICENSE").read_bytes(), expected)
+
+    def test_missing_declared_license_does_not_fall_back_to_another_file(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "LICENSE").write_bytes(b"unrelated license\n")
+            (root / "grammars/example").mkdir(parents=True)
+            entry = {"name": "example", "license_file": "LICENSE.md"}
+            with patch("registry.ROOT", root), patch("registry.source_path", return_value=root):
+                with self.assertRaisesRegex(ValueError, "example: missing upstream license.*LICENSE.md"):
+                    sync_queries({"example": entry}, {"example": entry})
+
     def test_overlapping_build_or_sync_is_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
             lock = Path(temporary) / "registry.lock"

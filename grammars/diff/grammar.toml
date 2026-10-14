@@ -1,0 +1,20 @@
+name = "diff"
+aliases = ["diff", "patch", "udiff"]
+repository = "https://github.com/tree-sitter-grammars/tree-sitter-diff"
+revision = "ada384ac7bfc1307f32de474620120add29998fb"
+path = "."
+language = "diff"
+license = "MIT"
+scope = "source.diff"
+injection_regex = "^diff$"
+
+[files]
+extensions = ["diff", "patch"]
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+
+[query-sources]
+highlights = ["diff:queries/highlights.scm"]
+injections = ["diff:queries/injections.scm"]

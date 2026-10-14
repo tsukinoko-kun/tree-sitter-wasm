@@ -1,0 +1,18 @@
+name = "json5"
+aliases = ["json5"]
+repository = "https://github.com/Joakker/tree-sitter-json5"
+revision = "248b8564567087d7866be76569b182f6dd7e14e9"
+path = "."
+language = "json5"
+license = "MIT"
+scope = "source.json5"
+injection_regex = "^json5$"
+
+[files]
+extensions = ["json5"]
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["json5:queries/highlights.scm"]

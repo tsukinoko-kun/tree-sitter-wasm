@@ -1,0 +1,18 @@
+name = "yaml"
+aliases = ["yaml", "yml"]
+repository = "https://github.com/tree-sitter-grammars/tree-sitter-yaml"
+revision = "a1c4812a73ec5e089de8e441fdea3a921e8d5079"
+path = "."
+language = "yaml"
+license = "MIT"
+scope = "source.yaml"
+injection_regex = "^yaml$"
+
+[files]
+extensions = ["yml", "yaml"]
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["yaml:queries/highlights.scm"]

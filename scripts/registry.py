@@ -104,6 +104,7 @@ def load_registry(root=ROOT):
                 f"{name}: missing or invalid parser language name")
         require(isinstance(entry.get("license"), str) and entry["license"],
                 f"{name}: missing SPDX license")
+        safe_path(entry.get("license_file", "LICENSE"))
         for key in ("scope", "injection_regex"):
             if key in entry:
                 require(isinstance(entry[key], str) and entry[key], f"{name}: invalid {key}")
@@ -218,6 +219,13 @@ def runtime_path(config):
     return directory / "web-tree-sitter.js"
 
 
+def license_content(entry):
+    filename = entry.get("license_file", "LICENSE")
+    file = source_path(entry) / filename
+    require(file.is_file(), f"{entry['name']}: missing upstream license {filename!r}")
+    return file.read_bytes()
+
+
 def query_content(sources, entries):
     parts = []
     for source in sources:
@@ -239,7 +247,7 @@ def sync_queries(entries, selected):
     updates = {}
     for name, entry in selected.items():
         directory = ROOT / "grammars" / name
-        updates[directory / "LICENSE"] = (source_path(entry) / "LICENSE").read_bytes()
+        updates[directory / "LICENSE"] = license_content(entry)
         for kind, filename in entry.get("queries", {}).items():
             updates[directory / filename] = query_content(entry["query-sources"][kind], entries)
     for path, content in updates.items():
@@ -263,7 +271,7 @@ def build_language(name, entry, entries, cli, output):
                    cwd=source, check=True)
     require(wasm.read_bytes()[:8] == b"\0asm\x01\0\0\0", f"{name}: invalid WASM output")
     local = ROOT / "grammars" / name
-    require((local / "LICENSE").read_bytes() == (source_path(entry) / "LICENSE").read_bytes(),
+    require((local / "LICENSE").read_bytes() == license_content(entry),
             f"{name}: LICENSE differs from pinned upstream license")
     for kind, filename in entry.get("queries", {}).items():
         expected = query_content(entry["query-sources"][kind], entries)
@@ -279,7 +287,7 @@ def build_language(name, entry, entries, cli, output):
     for dependency in sorted(dependencies):
         destination = directory / f"LICENSE-{dependency}"
         require((ROOT / "grammars" / dependency / "LICENSE").read_bytes()
-                == (source_path(entries[dependency]) / "LICENSE").read_bytes(),
+                == license_content(entries[dependency]),
                 f"{name}: inherited LICENSE-{dependency} differs from pinned upstream license")
         shutil.copyfile(ROOT / "grammars" / dependency / "LICENSE", destination)
         licenses[dependency] = file_record(destination, output)

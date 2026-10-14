@@ -1,0 +1,20 @@
+name = "make"
+aliases = ["make", "makefile", "mk", "gnumake"]
+repository = "https://github.com/tree-sitter-grammars/tree-sitter-make"
+revision = "70613f3d812cbabbd7f38d104d60a409c4008b43"
+path = "."
+language = "make"
+license = "MIT"
+scope = "source.mk"
+
+[files]
+extensions = ["mk", "mak", "dsp"]
+names = ["makefile", "Makefile", "MAKEFILE", "GNUmakefile"]
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+
+[query-sources]
+highlights = ["make:queries/highlights.scm"]
+injections = ["make:queries/injections.scm"]

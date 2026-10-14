@@ -1,0 +1,18 @@
+name = "ini"
+aliases = ["ini", "dosini"]
+repository = "https://github.com/justinmk/tree-sitter-ini"
+revision = "e4018b5176132b4f3c5d6e61cea383f42288d0f5"
+path = "."
+language = "ini"
+license = "Apache-2.0"
+scope = "source.ini"
+injection_regex = "^ini$"
+
+[files]
+extensions = ["ini"]
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["ini:queries/highlights.scm"]

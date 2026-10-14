@@ -1,0 +1,25 @@
+name = "lua"
+aliases = ["lua"]
+repository = "https://github.com/tree-sitter-grammars/tree-sitter-lua"
+revision = "10fe0054734eec83049514ea2e718b2a56acd0c9"
+path = "."
+language = "lua"
+license = "MIT"
+license_file = "LICENSE.md"
+scope = "source.lua"
+injection_regex = "^lua$"
+
+[files]
+extensions = ["lua"]
+
+[queries]
+highlights = "highlights.scm"
+injections = "injections.scm"
+locals = "locals.scm"
+tags = "tags.scm"
+
+[query-sources]
+highlights = ["lua:queries/highlights.scm"]
+injections = ["lua:queries/injections.scm"]
+locals = ["lua:queries/locals.scm"]
+tags = ["lua:queries/tags.scm"]

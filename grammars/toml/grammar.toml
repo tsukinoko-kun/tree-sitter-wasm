@@ -1,0 +1,18 @@
+name = "toml"
+aliases = ["toml"]
+repository = "https://github.com/tree-sitter-grammars/tree-sitter-toml"
+revision = "64b56832c2cffe41758f28e05c756a3a98d16f41"
+path = "."
+language = "toml"
+license = "MIT"
+scope = "source.toml"
+injection_regex = "^toml$"
+
+[files]
+extensions = ["toml"]
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["toml:queries/highlights.scm"]

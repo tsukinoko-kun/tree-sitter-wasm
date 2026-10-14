@@ -1,0 +1,18 @@
+name = "xml"
+aliases = ["xml", "svg", "xsd", "xslt", "xsl", "rng"]
+repository = "https://github.com/tree-sitter-grammars/tree-sitter-xml"
+revision = "5000ae8f22d11fbe93939b05c1e37cf21117162d"
+path = "xml"
+language = "xml"
+license = "MIT"
+scope = "source.xml"
+injection_regex = "^(xml|svg|xsd|xslt|xsl|rng)$"
+
+[files]
+extensions = ["xml", "svg", "xsd", "xslt", "xsl", "rng"]
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["xml:queries/xml/highlights.scm"]

@@ -1,0 +1,19 @@
+name = "sql"
+aliases = ["sql", "postgres", "postgresql", "mysql", "mariadb", "sqlite", "sqlite3"]
+repository = "https://github.com/DerekStride/tree-sitter-sql"
+revision = "39fdb006403747241244326e8af3b3e96b85381c"
+path = "."
+language = "sql"
+license = "MIT"
+scope = "source.sql"
+
+[files]
+extensions = ["sql"]
+
+[queries]
+highlights = "highlights.scm"
+indents = "indents.scm"
+
+[query-sources]
+highlights = ["sql:queries/highlights.scm"]
+indents = ["sql:queries/indents.scm"]

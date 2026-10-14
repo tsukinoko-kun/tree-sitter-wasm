@@ -29,6 +29,8 @@ tags = ["rust:queries/tags.scm"]
 
 `path` is relative to the upstream repository root. `language` is the parser's exported name, which can differ from the registry name. `query-sources` lists `<registry-name>:<upstream-path>` entries in concatenation order. Each source resolves to that entry's pinned repository and commit. C++ inherits C queries, and TypeScript inherits JavaScript queries. The published files include the inherited queries' license notices.
 
+`license` is the SPDX identifier. Optional `license_file` selects the upstream license path relative to the repository root, defaulting to `LICENSE`. The registry vendors its bytes unchanged as `LICENSE`, regardless of the upstream filename. Sync and build use the declared path, including for inherited-query licenses. A missing declared file is an error, not a request to search for another license.
+
 `aliases` is a required, nonempty list of Markdown code-fence labels, including the registry name. Labels contain lowercase ASCII letters, digits, and the punctuation `_`, `+`, `#`, `.`, or `-`, and start with a letter or digit. Aliases are unique within an entry and across the registry. They are maintained here, independently of `injection_regex` patterns and file extensions.
 
 Consumers match the lowercased language token from a fence's info string exactly against these aliases. Additional fence attributes are not part of the label. Each alias resolves to one grammar. For example, `pwsh` resolves to `powershell`, `jsx` to `javascript`, and `tsx` to `tsx`. Unknown labels have no declared grammar.
@@ -52,3 +54,5 @@ The `license` record also contains the SPDX identifier in `spdx`. `dependency_li
 The index publishes each entry's `aliases` list and optional `scope` and `injection_regex` values unchanged. `files` contains the file-detection fields from the grammar entry. Injection names come from upstream queries. They can match declared aliases, but not every injection target has an entry in this registry.
 
 The parsers require a Tree-sitter runtime compatible with their `abi_version`. The build tests against the runtime in `tree_sitter_version`. Queries use upstream capture names and predicates, which the IDE must implement.
+
+SQL dialect aliases select the same general SQL grammar; they do not enable dialect-specific modes or guarantee complete dialect coverage. Make's shell injections assume Bash rather than tracking the `SHELL` variable. Diff injections use filename captures and offset directives. Consumers must implement those conventions to highlight embedded content; loading the parser and compiling queries alone does not apply injections.

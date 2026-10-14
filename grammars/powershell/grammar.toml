@@ -1,4 +1,5 @@
 name = "powershell"
+aliases = ["powershell", "pwsh", "posh", "ps1", "psm1", "psd1"]
 repository = "https://github.com/airbus-cert/tree-sitter-powershell"
 revision = "e7bd348c49fdfd5c853a146a670965ba516a6239"
 path = "."

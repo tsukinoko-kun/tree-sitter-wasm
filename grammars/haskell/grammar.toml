@@ -1,4 +1,5 @@
 name = "haskell"
+aliases = ["haskell", "hs"]
 repository = "https://github.com/tree-sitter/tree-sitter-haskell"
 revision = "97288e585b0bd44199720280d067fa35bacd81ff"
 path = "."

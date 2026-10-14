@@ -1,4 +1,5 @@
 name = "c-sharp"
+aliases = ["c-sharp", "csharp", "c_sharp", "cs", "c#"]
 repository = "https://github.com/tree-sitter/tree-sitter-c-sharp"
 revision = "8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5"
 path = "."

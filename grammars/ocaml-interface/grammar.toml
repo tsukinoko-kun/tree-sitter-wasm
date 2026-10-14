@@ -1,4 +1,5 @@
 name = "ocaml-interface"
+aliases = ["ocaml-interface", "ocaml_interface", "mli"]
 repository = "https://github.com/tree-sitter/tree-sitter-ocaml"
 revision = "3b2e14e0697d405c9aa0beddfa09b71f45abc504"
 path = "grammars/interface"

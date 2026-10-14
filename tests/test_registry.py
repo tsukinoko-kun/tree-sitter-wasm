@@ -39,6 +39,7 @@ linux-x64 = "CHECKSUM"
 integrity = "INTEGRITY"
 '''.replace("CHECKSUM", "a" * 64).replace("INTEGRITY", "sha512-" + "A" * 86 + "==")
         self.metadata = '''name = "rust"
+aliases = ["rust", "rs"]
 repository = "https://github.com/tree-sitter/tree-sitter-rust"
 revision = "REVISION"
 path = "."
@@ -64,6 +65,55 @@ highlights = ["rust:queries/highlights.scm"]
     def test_valid_entry(self):
         _, entries = load_registry(self.root)
         self.assertEqual(entries["rust"]["files"]["extensions"], ["rs"])
+        self.assertEqual(entries["rust"]["aliases"], ["rust", "rs"])
+
+    def test_aliases_are_required(self):
+        self.metadata = self.metadata.replace('aliases = ["rust", "rs"]\n', '')
+        self.write()
+        with self.assertRaisesRegex(ValueError, "rust: aliases"):
+            load_registry(self.root)
+
+    def test_aliases_must_be_lowercase_fence_labels(self):
+        for value in ('[]', '"rust"', '[1]', '[""]', '["Rust"]',
+                      '["rust script"]', '["rust/rs"]'):
+            with self.subTest(value=value):
+                metadata = self.metadata.replace('["rust", "rs"]', value)
+                (self.directory / "grammar.toml").write_text(metadata)
+                with self.assertRaisesRegex(ValueError, "rust: aliases"):
+                    load_registry(self.root)
+
+    def test_aliases_include_the_registry_name(self):
+        self.metadata = self.metadata.replace('["rust", "rs"]', '["rs"]')
+        self.write()
+        with self.assertRaisesRegex(ValueError, "rust: aliases must include.*rust"):
+            load_registry(self.root)
+
+    def test_duplicate_aliases_fail(self):
+        self.metadata = self.metadata.replace('["rust", "rs"]', '["rust", "rust"]')
+        self.write()
+        with self.assertRaisesRegex(ValueError, "rust: duplicate alias"):
+            load_registry(self.root)
+
+    def test_aliases_cannot_be_shared_by_grammars(self):
+        self.config = self.config.replace('grammars = ["rust"]',
+                                          'grammars = ["rust", "python"]')
+        self.write()
+        extra = self.root / "grammars/python"
+        extra.mkdir()
+        (extra / "grammar.toml").write_text(
+            self.metadata.replace('name = "rust"', 'name = "python"')
+            .replace('aliases = ["rust", "rs"]', 'aliases = ["python", "rs"]'))
+        (extra / "LICENSE").write_text("license notice\n")
+        (extra / "highlights.scm").write_text("(identifier) @variable\n")
+        with self.assertRaisesRegex(ValueError, "python: alias 'rs'.*rust"):
+            load_registry(self.root)
+
+    def test_aliases_allow_punctuation_used_in_language_names(self):
+        self.metadata = self.metadata.replace('["rust", "rs"]',
+                                              '["rust", "c++", "c#", "c_sharp", "foo-bar", "foo.bar"]')
+        self.write()
+        _, entries = load_registry(self.root)
+        self.assertIn("c++", entries["rust"]["aliases"])
 
     def test_requires_full_commit_pin(self):
         self.metadata = self.metadata.replace("b" * 40, "main")

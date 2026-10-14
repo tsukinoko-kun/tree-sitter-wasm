@@ -1,4 +1,5 @@
 name = "agda"
+aliases = ["agda"]
 repository = "https://github.com/tree-sitter/tree-sitter-agda"
 revision = "e8d47a6987effe34d5595baf321d82d3519a8527"
 path = "."

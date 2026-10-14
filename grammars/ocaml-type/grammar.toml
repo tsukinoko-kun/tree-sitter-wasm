@@ -1,4 +1,5 @@
 name = "ocaml-type"
+aliases = ["ocaml-type", "ocaml_type"]
 repository = "https://github.com/tree-sitter/tree-sitter-ocaml"
 revision = "3b2e14e0697d405c9aa0beddfa09b71f45abc504"
 path = "grammars/type"

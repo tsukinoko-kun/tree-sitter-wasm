@@ -76,10 +76,22 @@ def load_registry(root=ROOT):
     require(isinstance(integrity, str) and re.fullmatch(r"sha512-[A-Za-z0-9+/]{86}==", integrity),
             "Missing or invalid web-tree-sitter integrity hash")
     entries = {}
+    alias_owners = {}
     for name in names:
         directory = root / "grammars" / name
         entry = load_toml(directory / "grammar.toml")
         require(entry.get("name") == name, f"{name}: name must match directory")
+        aliases = entry.get("aliases")
+        require(isinstance(aliases, list) and aliases
+                and all(isinstance(alias, str) and re.fullmatch(r"[a-z0-9][a-z0-9_+#.-]*", alias)
+                        for alias in aliases),
+                f"{name}: aliases must be a nonempty list of lowercase fence labels")
+        require(name in aliases, f"{name}: aliases must include the registry name {name!r}")
+        require(len(aliases) == len(set(aliases)), f"{name}: duplicate alias")
+        for alias in aliases:
+            require(alias not in alias_owners,
+                    f"{name}: alias {alias!r} already belongs to {alias_owners.get(alias)!r}")
+            alias_owners[alias] = name
         require(isinstance(entry.get("repository"), str) and re.fullmatch(
             r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", entry["repository"]),
             f"{name}: repository must be a GitHub HTTPS URL")
@@ -274,6 +286,7 @@ def build_language(name, entry, entries, cli, output):
     return {
         "repository": entry["repository"], "revision": entry["revision"],
         "language": entry["language"], "abi_version": int(abi[1]),
+        "aliases": entry["aliases"],
         **{key: entry[key] for key in ("scope", "injection_regex") if key in entry},
         "files": entry.get("files", {}),
         "wasm": file_record(wasm, output),

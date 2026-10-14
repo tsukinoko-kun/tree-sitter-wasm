@@ -1,4 +1,5 @@
 name = "cpp"
+aliases = ["cpp", "c++", "cplusplus", "cc", "cxx", "hpp", "hxx", "hh", "h++"]
 repository = "https://github.com/tree-sitter/tree-sitter-cpp"
 revision = "c009222808634c1014f82438d4883753516a2c24"
 path = "."

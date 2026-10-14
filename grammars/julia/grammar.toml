@@ -1,4 +1,5 @@
 name = "julia"
+aliases = ["julia", "jl"]
 repository = "https://github.com/tree-sitter/tree-sitter-julia"
 revision = "e0f9dcd180fdcfcfa8d79a3531e11d99e79321d3"
 path = "."

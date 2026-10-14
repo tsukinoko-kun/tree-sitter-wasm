@@ -1,4 +1,5 @@
 name = "rust"
+aliases = ["rust", "rs"]
 repository = "https://github.com/tree-sitter/tree-sitter-rust"
 revision = "77a3747266f4d621d0757825e6b11edcbf991ca5"
 path = "."

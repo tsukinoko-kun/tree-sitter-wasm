@@ -3,7 +3,7 @@ source = "https://tree-sitter.github.io/tree-sitter/#parsers"
 grammars = [
   "agda", "bash", "c", "c-sharp", "cpp", "css", "ejs", "erb", "etlua",
   "flow", "go", "haskell", "html", "java", "javascript", "jsdoc", "json",
-  "julia", "ocaml", "ocaml-interface", "ocaml-type", "php", "php-only",
+  "julia", "ocaml", "ocaml-interface", "ocaml-type", "php", "php-only", "powershell",
   "python", "regex", "ruby", "rust", "scala", "tsx", "typescript", "verilog",
 ]
 

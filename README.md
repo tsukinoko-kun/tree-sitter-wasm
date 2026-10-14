@@ -1,6 +1,6 @@
 # Tree-sitter WASM registry
 
-Pinned grammars from the [Tree-sitter upstream parser list](https://tree-sitter.github.io/tree-sitter/#parsers), with vendored queries and licenses. The registry contains 31 language entries from 24 repositories, including TSX, Flow, PHP-only, OCaml interfaces and types, and the embedded-template variants.
+Pinned grammars from the [Tree-sitter upstream parser list](https://tree-sitter.github.io/tree-sitter/#parsers) and [Airbus CERT's PowerShell grammar](https://github.com/airbus-cert/tree-sitter-powershell), with vendored queries and licenses. The registry contains 32 language entries from 25 repositories, including TSX, Flow, PHP-only, PowerShell, OCaml interfaces and types, and the embedded-template variants.
 
 ## Build locally
 

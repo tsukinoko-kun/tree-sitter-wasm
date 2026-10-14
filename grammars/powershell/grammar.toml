@@ -1,0 +1,17 @@
+name = "powershell"
+repository = "https://github.com/airbus-cert/tree-sitter-powershell"
+revision = "e7bd348c49fdfd5c853a146a670965ba516a6239"
+path = "."
+language = "powershell"
+license = "MIT"
+scope = "source.ps1"
+injection_regex = "^(ps1|psm1)$"
+
+[files]
+extensions = ["ps1", "psm1"]
+
+[queries]
+highlights = "highlights.scm"
+
+[query-sources]
+highlights = ["powershell:queries/highlights.scm"]

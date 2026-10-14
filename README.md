@@ -1,6 +1,8 @@
 # Tree-sitter WASM registry
 
-Pinned grammars from the [Tree-sitter upstream parser list](https://tree-sitter.github.io/tree-sitter/#parsers) and [Airbus CERT's PowerShell grammar](https://github.com/airbus-cert/tree-sitter-powershell), with vendored queries and licenses. The registry contains 32 language entries from 25 repositories, including TSX, Flow, PHP-only, PowerShell, OCaml interfaces and types, and the embedded-template variants.
+Tree-sitter grammars compiled to WASM, with pinned upstream sources, vendored queries, and licenses. The published index includes file-detection metadata and checksums for each artifact.
+
+See [`registry.toml`](registry.toml) for available grammars and pinned build tools. Each entry under [`grammars/`](grammars/) records its upstream repository, commit, and query sources.
 
 ## Build locally
 
@@ -17,11 +19,11 @@ To build one grammar:
 scripts/build-all rust
 ```
 
-The build downloads the pinned Tree-sitter CLI and matching web runtime, verifies their checksums, and fetches grammar sources at their pinned commits. The CLI downloads its WASI SDK automatically. No Docker, npm install, or parser generation is required. Downloads are cached under `.cache/` and Tree-sitter's system cache.
+The build downloads and verifies the pinned Tree-sitter CLI and web runtime, then fetches grammar sources at their pinned commits. The CLI downloads its WASI SDK automatically. No Docker, npm install, or parser generation is required.
 
-The build loads every WASM parser in `web-tree-sitter`, parses input, compiles each query, and checks every indexed file's size and hash. It publishes `dist/` only after all checks pass. A single-grammar build replaces `dist/` with only that grammar, so its index never advertises absent or stale parsers. Build and verification failures leave the previous `dist/` intact. Publication keeps a backup in `.cache/previous-dist` until the new output is in place. If publication is interrupted, the next build recovers that backup.
+The build verifies that each WASM parser loads and runs, each query compiles, and each indexed file matches its recorded size and hash. It replaces `dist/` only after all checks pass. A single-grammar build replaces `dist/` with only that grammar. Build and verification failures preserve the previous output.
 
-Only one build or query sync can run in a checkout at a time. A concurrent invocation exits with an error before changing the cache or output.
+Only one build or query sync can run in a checkout at a time.
 
 To serve the result:
 
@@ -41,7 +43,7 @@ For this repository, the published index URL is:
 https://tsukinoko-kun.github.io/tree-sitter-wasm/index.json
 ```
 
-The workflow publishes all of `dist/`, including metadata, queries, licenses, and WASM parsers. Every action uses the latest release available when this registry was created.
+The workflow publishes all of `dist/`, including metadata, queries, licenses, and WASM parsers.
 
 ## Load a grammar in your IDE
 

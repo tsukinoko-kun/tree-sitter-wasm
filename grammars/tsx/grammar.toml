@@ -6,10 +6,10 @@ path = "tsx"
 language = "tsx"
 license = "MIT"
 scope = "source.tsx"
-injection_regex = "^(ts|typescript)$"
+injection_regex = "^([jt]sx|typescriptreact|javascriptreact)$"
 
 [files]
-extensions = ["tsx"]
+extensions = ["tsx", "jsx"]
 
 [queries]
 highlights = "highlights.scm"

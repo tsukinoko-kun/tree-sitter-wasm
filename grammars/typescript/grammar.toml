@@ -6,10 +6,10 @@ path = "typescript"
 language = "typescript"
 license = "MIT"
 scope = "source.ts"
-injection_regex = "^(ts|typescript)$"
+injection_regex = "^(typescript|javascript|[cm]?[jt]s)$"
 
 [files]
-extensions = ["ts"]
+extensions = ["ts", "mts", "cts", "js", "mjs", "cjs"]
 
 [queries]
 highlights = "highlights.scm"

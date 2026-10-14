@@ -1,5 +1,6 @@
 import hashlib
 from pathlib import Path
+import re
 import sys
 import tempfile
 import unittest
@@ -162,6 +163,43 @@ highlights = ["rust:queries/highlights.scm"]
         self.write()
         with self.assertRaisesRegex(ValueError, "Unsafe relative path"):
             load_registry(self.root)
+
+
+class JavaScriptDetectionTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        _, cls.entries = load_registry()
+
+    def test_file_extensions_cover_module_variants_and_split_jsx(self):
+        cases = {
+            "javascript": ({"js", "mjs", "cjs", "jsx"}, {"ts", "mts", "cts", "tsx"}),
+            "typescript": ({"ts", "mts", "cts", "js", "mjs", "cjs"}, {"tsx", "jsx"}),
+            "tsx": ({"tsx", "jsx"}, {"ts", "mts", "cts"}),
+        }
+        for name, (supported, unsupported) in cases.items():
+            extensions = set(self.entries[name]["files"]["extensions"])
+            with self.subTest(grammar=name):
+                self.assertLessEqual(supported, extensions)
+                self.assertFalse(extensions & unsupported)
+                self.assertFalse(extensions & {"mjsx", "cjsx", "mtsx", "ctsx"})
+
+    def test_injection_labels_cover_module_variants_and_split_jsx(self):
+        cases = {
+            "javascript": ({"javascript", "js", "mjs", "cjs", "jsx", "javascriptreact"},
+                           {"typescript", "ts", "mts", "cts", "tsx", "typescriptreact"}),
+            "typescript": ({"typescript", "ts", "mts", "cts", "javascript", "js", "mjs", "cjs"},
+                           {"tsx", "jsx", "typescriptreact", "javascriptreact"}),
+            "tsx": ({"tsx", "jsx", "typescriptreact", "javascriptreact"},
+                    {"typescript", "ts", "mts", "cts", "javascript", "js", "mjs", "cjs"}),
+        }
+        for name, (supported, unsupported) in cases.items():
+            pattern = self.entries[name]["injection_regex"]
+            for label in supported:
+                with self.subTest(grammar=name, label=label):
+                    self.assertIsNotNone(re.search(pattern, label))
+            for label in unsupported | {"mjsx", "cjsx", "mtsx", "ctsx", "not-ts", "tsx-extra"}:
+                with self.subTest(grammar=name, label=label):
+                    self.assertIsNone(re.search(pattern, label))
 
 
 class ArtifactTests(unittest.TestCase):

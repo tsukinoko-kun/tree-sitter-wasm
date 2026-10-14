@@ -6,7 +6,7 @@ path = "."
 language = "javascript"
 license = "MIT"
 scope = "source.js"
-injection_regex = "^(js|javascript)$"
+injection_regex = "^(javascript|javascriptreact|[cm]?js|jsx)$"
 
 [files]
 extensions = ["js", "mjs", "cjs", "jsx"]

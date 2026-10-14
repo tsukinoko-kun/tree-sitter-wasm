@@ -29,11 +29,15 @@ tags = ["rust:queries/tags.scm"]
 
 `path` is relative to the upstream repository root. `language` is the parser's exported name, which can differ from the registry name. `query-sources` lists `<registry-name>:<upstream-path>` entries in concatenation order. Each source resolves to that entry's pinned repository and commit. C++ inherits C queries, and TypeScript inherits JavaScript queries. The published files include the inherited queries' license notices.
 
-`aliases` is a required, nonempty list of Markdown code-fence labels, including the registry name. Labels contain lowercase ASCII letters, digits, and the punctuation `_`, `+`, `#`, `.`, or `-`, and start with a letter or digit. Aliases are unique within an entry and across the registry. They are maintained here, independently of upstream `injection_regex` patterns and file extensions.
+`aliases` is a required, nonempty list of Markdown code-fence labels, including the registry name. Labels contain lowercase ASCII letters, digits, and the punctuation `_`, `+`, `#`, `.`, or `-`, and start with a letter or digit. Aliases are unique within an entry and across the registry. They are maintained here, independently of `injection_regex` patterns and file extensions.
 
 Consumers match the lowercased language token from a fence's info string exactly against these aliases. Additional fence attributes are not part of the label. Each alias resolves to one grammar. For example, `pwsh` resolves to `powershell`, `jsx` to `javascript`, and `tsx` to `tsx`. Unknown labels have no declared grammar.
 
 `files.extensions` contains suffixes without a leading dot. `files.names` contains exact filenames such as `.bashrc`. Optional `files.first_line_regex` and `files.content_regex` contain upstream detection patterns. Extensions can overlap, such as `.h` for C and C++. The IDE decides precedence. JSDoc, Regex, OCaml types, and PHP-only have no standalone file extensions.
+
+TypeScript covers `.ts`, `.mts`, `.cts`, `.js`, `.mjs`, and `.cjs`. TSX covers `.tsx` and `.jsx`. The JavaScript grammar also covers JavaScript files, including `.jsx`. Code-fence aliases remain unique, so `js` resolves to `javascript` even though TypeScript can parse it. Consumers detect extensions from the URL pathname, without query strings or fragments.
+
+`injection_regex` matches language labels, not filenames or URLs. Patterns can overlap when multiple grammars support a language. The TypeScript, TSX, and JavaScript patterns are maintained here to cover module variants and distinguish JSX. Other entries preserve their upstream patterns.
 
 Missing query kinds mean that no upstream query is available for that entry. In particular, upstream Verilog supplies no queries. The registry does not invent queries or require that every injection target exists in this registry.
 
@@ -45,6 +49,6 @@ Every file record contains `path`, `sha256`, and `size` in bytes. Paths are rela
 
 The `license` record also contains the SPDX identifier in `spdx`. `dependency_licenses` maps inherited-query grammar names to license file records. `metadata` points to the entry's `grammar.toml`. `registry` points to the top-level `registry.toml`.
 
-The index publishes each entry's `aliases` list unchanged and preserves optional `scope` and `injection_regex` values from upstream. `files` contains the file-detection fields from the grammar entry. Injection names come from upstream queries. They can match declared aliases, but not every injection target has an entry in this registry.
+The index publishes each entry's `aliases` list and optional `scope` and `injection_regex` values unchanged. `files` contains the file-detection fields from the grammar entry. Injection names come from upstream queries. They can match declared aliases, but not every injection target has an entry in this registry.
 
 The parsers require a Tree-sitter runtime compatible with their `abi_version`. The build tests against the runtime in `tree_sitter_version`. Queries use upstream capture names and predicates, which the IDE must implement.

@@ -1,0 +1,29 @@
+[package]
+name = "tree-sitter-wasm"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "Tree-sitter WASM grammar registry, shared download cache, and parser runtime"
+license = "Zlib"
+repository = "https://github.com/tsukinoko-kun/tree-sitter-wasm"
+include = ["/src/**/*.rs", "/examples/**/*.rs", "/README.md", "/LICENSE"]
+
+[dependencies]
+anyhow = "1"
+async-channel = "2"
+dirs = "6"
+fs2 = "0.4"
+log = "0.4"
+regex = "1"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls", "gzip", "brotli", "deflate"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+tempfile = "3"
+tree-sitter = { version = "0.26.8", features = ["wasm"] }
+url = "2"
+wasmtime = { version = "=36.0.17", default-features = false, features = ["cache"] }
+
+[dev-dependencies]
+futures-lite = "2"
+tiny_http = "0.12"
